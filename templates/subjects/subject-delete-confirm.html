@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Fan o'chirish - Maktab CRM{% endblock %}
+
+{% block content %}
+    <h1>Fan o'chirish</h1>
+    <p>Fan <strong>{{ subject.subject.name }}</strong> o'chiriladimi?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">O'chirish</button>
+        <a href="{% url 'subjects:list' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+{% endblock %}

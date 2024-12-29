@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if subject %}Fanni tahrirlash{% else %}Maktab CRM - Yangi fan yaratish{% endif %}{% endblock %}
+
+{% block content %}
+    <h1>Yangi fan yaratish</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="subject_name">Fan nomi:</label>
+                <input type="text" id="subject_name" name="subject_name" placeholder="Fan nomini kiriting" value="{{ subject.subject_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="teachers">O'qituvchilar:</label>
+                <select id="teachers" name="teachers">
+                    {% for teacher in teachers %}
+                        <option value="{{ teacher.first_name }}{{ teacher.last_name }}">{{ teacher.first_name }}{{ teacher.last_name }}</option>
+                    {% empty %}
+                        <option>Hozircha o`qituvchilar yo`q</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="actions">
+                <button type="submit" class="btn"><i class="fas fa-save"></i>{% if subject %}Tahrirlash {% else %}Saqlash{% endif %}</button>
+                <a href="{% url 'subjects:list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
+            </div>
+        </form>
+{% endblock %}
+
+
+

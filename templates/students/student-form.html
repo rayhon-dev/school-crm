@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if student %}Maktab CRM - O'quvchini tahrirlash{% else %}Maktab CRM - O'quvchi yaratish{% endif %}{% endblock %}
+
+{% block content %}
+    <h1>O'quvchi yaratish</h1>
+        <form id="createStudentForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="full_name">To'liq ism:</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Jasurbek Ismoilov" value="{{ student.full_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="group">Guruh:</label>
+                <select id="group" name="group_id" required>
+                    <option value="">Guruhni tanlang</option>
+                    {% for group in groups %}
+                        <option value="{{ group.group_name }}">{{ student.group.group_name }}</option>
+                    {% empty %}
+                    <option value="">Hozircha guruhlar yo`q</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dob">Tug'ilgan sana:</label>
+                <input type="date" id="dob" name="dob" value="{{ student.dob | date:'Y-m-d' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefon:</label>
+                <input type="tel" id="phone" name="phone" placeholder="+998 90 123 45 67" value="{{ student.phone }}" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Manzil:</label>
+                <input type="text" id="address" name="address" placeholder="Tashkent, Yunusobod" value="{{ student.address }}" required>
+            </div>
+            <div class="form-group">
+                <label for="photo">Rasm:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+            </div>
+            <div class="actions">
+                <button type="submit" class="btn"><i class="fas fa-save"></i>{% if student %}Tahrirlash{% else %}Saqlash{% endif %}</button>
+                <a href="{% url 'students:list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
+            </div>
+        </form>
+{% endblock %}

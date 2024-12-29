@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}O'qituvchini o'chirish - Maktab CRM{% endblock %}
+
+{% block content %}
+    <h1>O'qituvchini o'chirish</h1>
+    <p>O'qituvchi <strong>{{ teacher.first_name }} {{ teacher.last_name }}</strong> o'chiriladimi?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">O'chirish</button>
+        <a href="{% url 'teachers:list' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Guruhni o'chirish - Maktab CRM{% endblock %}
+
+{% block content %}
+    <h1>Guruhni o'chirish</h1>
+    <p>Guruh <strong>{{ group.group_name }}</strong> o'chiriladimi?</p>  <!-- Assuming 'group_name' is the field in Group -->
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">O'chirish</button>
+        <a href="{% url 'groups:list' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+{% endblock %}

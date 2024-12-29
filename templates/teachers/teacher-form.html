@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if teacher %}O'qituvchi ma`lumotini tahrirlash{% else %}Maktab CRM - Yangi O'qituvchi yaratish{% endif %}{% endblock %}
+
+{% block content %}
+    <h1>Yangi O'qituvchi yaratish</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">Ism:</label>
+                <input type="text" id="first_name" name="first_name" placeholder="Ismingizni kiriting" value="{{ teacher.first_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Familiya:</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Familiyangizni kiriting"  value="{{ teacher.last_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Fan:</label>
+                <select id="subject" name="subject" required>
+                    {% for subject in subjects %}
+                        <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                    {% empty %}
+                        <option value="">Hozircha fanlar yo`q</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefon:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Telefon raqamingizni kiriting" value="{{ teacher.phone }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email manzilingizni kiriting" value="{{ teacher.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="experience">Ish tajribasi (yil):</label>
+                <input type="number" id="experience" name="experience" placeholder="Ish tajribangizni kiriting" value="{{ teacher.experience }}" required>
+            </div>
+            <div class="form-group">
+                <label for="photo">Rasm:</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+            </div>
+            <div class="actions">
+                <button type="submit" class="btn"><i class="fas fa-save"></i>{% if teacher %}Tahrirlash {% else %}Saqlash{% endif %}</button>
+                <a href="{% url 'teachers:list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
+            </div>
+        </form>
+
+{% endblock %}
+
