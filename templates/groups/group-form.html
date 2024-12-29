@@ -1,41 +1,49 @@
 {% extends 'base.html' %}
 
-{% block title %}{% if group %}Maktab CRM - Guruhni tahrirlash{% else %}Maktab CRM - Guruh yaratish{% endif %}{% endblock %}
-
-{% block content %}
-    <h1>Guruh yaratish</h1>
-        <form id="createGroupForm" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="group_name">Guruh nomi:</label>
-                <input type="text" id="group_name" name="group_name" placeholder="Guruh nomini kiriting" value="{{ group.group_name }}" required>
-            </div>
-            <div class="form-group">
-                <label for="classTeacher">Sinf rahbari:</label>
-                <select id="classTeacher" name="class_teacher"  required>
-                    <option value="">Sinf rahbarini tanlang</option>
-                    {% for class_teacher in class_teachers %}
-                        <option value="{{ class_teacher.id }}">{{ class_teacher.first_name }}{{ class_teacher.last_name }}</option>
-                    {% empty %}
-                    <option value="">Hozircha o`qituvchilar yo`q</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="students">O'quvchilar:</label>
-                <select id="students" name="students[]" multiple required>
-                    {% for student in students %}
-                        <option value="{{ student.id }}">{{ student.full_name }}</option>
-                    {% empty %}
-                    <option value="">Hozircha o`quvchilar yo`q</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="actions">
-                <button type="submit" class="btn"><i class="fas fa-save"></i> {% if group %}Tahrirlash{% else %}Saqlash{% endif %}</button>
-                <a href="{% url 'groups:list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
-            </div>
-        </form>
+{% block title %}
+    {% if group %}Maktab CRM - Guruhni tahrirlash{% else %}Maktab CRM - Guruh yaratish{% endif %}
 {% endblock %}
 
-
+{% block content %}
+    <h1>{% if group %}Guruhni tahrirlash{% else %}Guruh yaratish{% endif %}</h1>
+    <form id="createGroupForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="group_name">Guruh nomi:</label>
+            <input type="text" id="group_name" name="group_name" placeholder="Guruh nomini kiriting" value="{{ group.group_name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="classTeacher">Sinf rahbari:</label>
+            <select id="classTeacher" name="class_teacher" required>
+                <option value="">Sinf rahbarini tanlang</option>
+                {% for class_teacher in class_teachers %}
+                    <option value="{{ class_teacher.id }}" {% if class_teacher == group.class_teacher %}selected{% endif %}>
+                        {{ class_teacher.first_name }} {{ class_teacher.last_name }}
+                    </option>
+                {% empty %}
+                    <option value="">Hozircha o'qituvchilar yo'q</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="students">O'quvchilar:</label>
+            <select id="students" name="students" multiple required>
+                {% for student in students %}
+                    <option value="{{ student.id }}" {% if student in group.students.all %}selected{% endif %}>
+                        {{ student.full_name }}
+                    </option>
+                {% empty %}
+                    <option value="">Hozircha o'quvchilar yo'q</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn">
+                <i class="fas fa-save"></i>{% if group %} Tahrirlash {% else %} Saqlash {% endif %}
+            </button>
+            <a href="{% url 'groups:list' %}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Bekor qilish
+            </a>
+        </div>
+    </form>
+{% endblock %}

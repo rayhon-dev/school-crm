@@ -48,6 +48,7 @@ def student_delete(request, pk):
 
 def student_update(request, pk):
     student = get_object_or_404(Student, pk=pk)
+    groups = Group.objects.all()
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
         group_id = request.POST.get('group')
@@ -56,19 +57,21 @@ def student_update(request, pk):
         address = request.POST.get('address')
         photo = request.FILES.get('photo')
 
-        if full_name and group_id and dob and phone and address and photo:
+        if full_name and group_id and dob and phone and address:
             group = Group.objects.get(pk=group_id)
             student.full_name = full_name
             student.group = group
             student.dob = dob
             student.phone = phone
             student.address = address
-            student.photo = photo
+            if photo:
+                student.photo = photo
 
-        student.save()
+            student.save()
 
-        return redirect(student.get_detail_url())
+            return redirect(student.get_detail_url())
 
-    ctx = {'student': student}
+    ctx = {'student': student,
+           'groups': groups }
     return render(request, 'students/student-form.html', ctx)
 

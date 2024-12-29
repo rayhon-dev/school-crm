@@ -3,7 +3,7 @@
 {% block title %}{% if teacher %}O'qituvchi ma`lumotini tahrirlash{% else %}Maktab CRM - Yangi O'qituvchi yaratish{% endif %}{% endblock %}
 
 {% block content %}
-    <h1>Yangi O'qituvchi yaratish</h1>
+    <h1>{% if teacher %}O`qituvchi ma`lumotini tahrirlash{% else %}Yangi O'qituvchi yaratish{% endif %}</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
@@ -18,7 +18,7 @@
                 <label for="subject">Fan:</label>
                 <select id="subject" name="subject" required>
                     {% for subject in subjects %}
-                        <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                        <option value="{{ subject.id }}">{% if teacher.subject.id == subject.id %}{% endif %} {{ subject.subject_name }}</option>
                     {% empty %}
                         <option value="">Hozircha fanlar yo`q</option>
                     {% endfor %}
@@ -38,6 +38,9 @@
             </div>
             <div class="form-group">
                 <label for="photo">Rasm:</label>
+                {% if teacher.photo %}
+                    <img src="{{ teacher.photo.url }}" alt="Current Image" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
+                {% endif %}
                 <input type="file" id="photo" name="photo" accept="image/*">
             </div>
             <div class="actions">
@@ -45,6 +48,4 @@
                 <a href="{% url 'teachers:list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
             </div>
         </form>
-
 {% endblock %}
-

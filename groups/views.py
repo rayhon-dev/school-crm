@@ -54,18 +54,27 @@ def group_delete(request, pk):
 
 def group_update(request, pk):
     group = get_object_or_404(Group, pk=pk)
+
     if request.method == 'POST':
         group_name = request.POST.get('group_name')
-        class_teacher = request.POST.get('class_teacher')
+        class_teacher_id = request.POST.get('class_teacher')
+        student_ids = request.POST.getlist('students')  # Tanlangan barcha o'quvchilarni oladi
 
-        if group_name and class_teacher:
+        if group_name and class_teacher_id:
             group.group_name = group_name
-            group.class_teacher = class_teacher
+            group.class_teacher_id = class_teacher_id
+            group.save()
 
-        group.save()
+            # O'quvchilarni yangilash
+            selected_students = Student.objects.filter(pk__in=student_ids)
+            group.students.set(selected_students)  # ManyToManyField uchun set() metodidan foydalanamiz
 
         return redirect(group.get_detail_url())
 
-    ctx = {'group': group}
-    return render(request, 'groups/group-form.html', ctx)
-
+    # Contextga barcha kerakli ma'lumotlarni qo'shish
+    context = {
+        'group': group,
+        'class_teachers': Teacher.objects.all(),
+        'students': Student.objects.all(),
+    }
+    return render(request, 'groups/group-form.html', context)

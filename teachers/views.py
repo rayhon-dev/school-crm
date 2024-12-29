@@ -50,6 +50,7 @@ def teacher_delete(request, pk):
 
 def teacher_update(request, pk):
     teacher = get_object_or_404(Teacher, pk=pk)
+    subjects = Subject.objects.all()
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -59,7 +60,7 @@ def teacher_update(request, pk):
         experience = request.POST.get('experience')
         photo = request.FILES.get('photo')
 
-        if first_name and last_name and subject_id and phone and email and experience and photo:
+        if first_name and last_name and subject_id and phone and email and experience:
             subject = Subject.objects.get(pk=subject_id)
             teacher.first_name = first_name
             teacher.last_name = last_name
@@ -67,12 +68,15 @@ def teacher_update(request, pk):
             teacher.phone = phone
             teacher.email = email
             teacher.experience = experience
-            teacher.photo = photo
+            if photo:
+                teacher.photo = photo
 
-        teacher.save()
 
-        return redirect(teacher.get_detail_url())
+            teacher.save()
 
-    ctx = {'teacher': teacher }
+            return redirect(teacher.get_detail_url())
+
+    ctx = {'teacher': teacher,
+           'subjects': subjects,}
     return render(request, 'teachers/teacher-form.html', ctx)
 

@@ -3,7 +3,7 @@
 {% block title %}{% if student %}Maktab CRM - O'quvchini tahrirlash{% else %}Maktab CRM - O'quvchi yaratish{% endif %}{% endblock %}
 
 {% block content %}
-    <h1>O'quvchi yaratish</h1>
+    <h1>{% if student %}O`quvchi ma`lumotini tahrirlash{% else %}O'quvchi yaratish{% endif %}</h1>
         <form id="createStudentForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
@@ -15,7 +15,8 @@
                 <select id="group" name="group" required>
                     <option value="">Guruhni tanlang</option>
                     {% for group in groups %}
-                        <option value="{{ group.id }}">{{ group.group_name }}</option>
+                       <option value="{{ group.id }}" {% if group == student.group %}{% endif %} >{{ group.group_name }}
+                       </option>
                     {% empty %}
                     <option value="">Hozircha guruhlar yo`q</option>
                     {% endfor %}
@@ -35,6 +36,9 @@
             </div>
             <div class="form-group">
                 <label for="photo">Rasm:</label>
+                {% if student.photo %}
+                    <img src="{{ student.photo.url }}" alt="{{ student.full_name }}" style="width: 100px; height: auto;">
+                {% endif %}
                 <input type="file" id="photo" name="photo" accept="image/*" required>
             </div>
             <div class="actions">

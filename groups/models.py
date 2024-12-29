@@ -7,6 +7,7 @@ class Group(models.Model):
     group_name = models.CharField(max_length=100)
     class_teacher = models.OneToOneField(Teacher, on_delete=models.SET_NULL, null=True, related_name='group')
 
+
     def __str__(self):
         return self.group_name
 

@@ -38,15 +38,16 @@ def subject_update(request, pk):
     subject = get_object_or_404(Subject, pk=pk)
     if request.method == 'POST':
         subject_name = request.POST.get('subject_name')
+        teacher_ids = request.POST.getlist('teachers')
 
 
         if subject_name:
             subject.subject_name = subject_name
+            subject.teachers.set(teacher_ids)  # O'qituvchilarni yangilash
+            subject.save()
+            return redirect(subject.get_detail_url())
 
-        subject.save()
-
-        return redirect(subject.get_detail_url())
-
-    ctx = {'subject': subject}
+    teachers = Teacher.objects.all()
+    ctx = {'subject': subject, 'teachers': teachers}
     return render(request, 'subjects/subject-form.html', ctx)
 

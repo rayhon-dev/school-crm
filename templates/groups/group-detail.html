@@ -8,7 +8,7 @@
             <div class="group-info">
                 <h2>{{ group.group_name }}</h2>
                 <p>ID: {{ group.pk }}</p>
-                <p>O'quvchilar soni: {{ students_count }}</p>
+                <p>O'quvchilar soni:{{ group.students.count }}</p>
                 <p>Sinf rahbari: {{ group.class_teacher }}</p>
             </div>
             <div class="group-students">

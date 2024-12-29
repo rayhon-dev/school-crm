@@ -3,7 +3,7 @@
 {% block title %}{% if subject %}Fanni tahrirlash{% else %}Maktab CRM - Yangi fan yaratish{% endif %}{% endblock %}
 
 {% block content %}
-    <h1>Yangi fan yaratish</h1>
+    <h1>{% if subject %}Fanni tahrirlash{% else %}Yangi fan yaratish{% endif %}</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
@@ -14,7 +14,7 @@
                 <label for="teachers">O'qituvchilar:</label>
                 <select id="teachers" name="teachers">
                     {% for teacher in teachers %}
-                        <option value="{{ teacher.first_name }}{{ teacher.last_name }}">{{ teacher.first_name }}{{ teacher.last_name }}</option>
+                        <option value="{{ teacher.id }}">{% if teacher.teacher.id == teacher.id %}{% endif %}{{ teacher.first_name }}{{ teacher.last_name }}</option>
                     {% empty %}
                         <option>Hozircha o`qituvchilar yo`q</option>
                     {% endfor %}
