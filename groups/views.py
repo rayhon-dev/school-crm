@@ -10,7 +10,7 @@ def home(request):
            'teachers_count': Teacher.objects.count(),
            'students_count': Student.objects.count(),
            'groups_count': Group.objects.count(), }
-    return render(request,'index.html')
+    return render(request,'index.html', ctx)
 
 
 def group_list(request):
@@ -19,6 +19,10 @@ def group_list(request):
     return render(request, 'groups/groups-list.html', ctx)
 
 def group_add(request):
+    class_teachers = Teacher.objects.all()
+    students = Student.objects.all()
+    group = None
+
     if request.method == 'POST':
         group_name = request.POST.get('group_name')
         class_teacher_id = request.POST.get('class_teacher')
@@ -31,7 +35,9 @@ def group_add(request):
             )
             return redirect('groups:list')
 
-    return  render(request, 'groups/group-form.html')
+    return render(request, 'groups/group-form.html',
+                  {'group': group, 'class_teachers': class_teachers, 'students': students, })
+
 
 def group_detail(request, pk):
     group = get_object_or_404(Group, pk=pk)

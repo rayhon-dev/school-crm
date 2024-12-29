@@ -12,10 +12,10 @@
             </div>
             <div class="form-group">
                 <label for="classTeacher">Sinf rahbari:</label>
-                <select id="classTeacher" name="classTeacher"  required>
+                <select id="classTeacher" name="class_teacher"  required>
                     <option value="">Sinf rahbarini tanlang</option>
                     {% for class_teacher in class_teachers %}
-                        <option value="{{ class_teacher.class_teacher }}">{{ group.class_teacher }}</option>
+                        <option value="{{ class_teacher.id }}">{{ group.class_teacher }}</option>
                     {% empty %}
                     <option value="">Hozircha o`qituvchilar yo`q</option>
                     {% endfor %}
@@ -25,14 +25,14 @@
                 <label for="students">O'quvchilar:</label>
                 <select id="students" name="students[]" multiple required>
                     {% for student in students %}
-                        <option value="{{ student.full_name }}">{{ group.students.full_name }}</option>
+                        <option value="{{ student.id }}">{{ group.students.full_name }}</option>
                     {% empty %}
                     <option value="">Hozircha o`quvchilar yo`q</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="actions">
-                <a href="{{ group.get_update_url}}" class="btn"><i class="fas fa-save"></i> {% if group %}Tahrirlash{% else %}Saqlash{% endif %}</a>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> {% if group %}Tahrirlash{% else %}Saqlash{% endif %}</button>
                 <a href="{% url 'groups:list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
             </div>
         </form>

@@ -12,10 +12,10 @@
             </div>
             <div class="form-group">
                 <label for="group">Guruh:</label>
-                <select id="group" name="group_id" required>
+                <select id="group" name="group" required>
                     <option value="">Guruhni tanlang</option>
                     {% for group in groups %}
-                        <option value="{{ group.group_name }}">{{ student.group.group_name }}</option>
+                        <option value="{{ group.id }}">{{ group.group_name }}</option>
                     {% empty %}
                     <option value="">Hozircha guruhlar yo`q</option>
                     {% endfor %}

@@ -25,9 +25,9 @@
                     <td>{{ student.full_name }}</td>
                     <td>{{ student.group }}</td>
                     <td>
-                        <a href="{{ students.get_detail_url }}" class="btn btn-sm"><i class="fas fa-eye"></i> Ko'rish</a>
-                        <a href="{{ students.get_update_url }}" class="btn btn-sm"><i class="fas fa-edit"></i> Tahrirlash</a>
-                        <a href="{{ students.get_delete_url }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
+                        <a href="{{ student.get_detail_url }}" class="btn btn-sm"><i class="fas fa-eye"></i> Ko'rish</a>
+                        <a href="{{ student.get_update_url }}" class="btn btn-sm"><i class="fas fa-edit"></i> Tahrirlash</a>
+                        <a href="{{ student.get_delete_url }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
                     </td>
                 </tr>
             {% empty %}
