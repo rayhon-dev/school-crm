@@ -5,7 +5,7 @@ from django.shortcuts import reverse
 
 class Student(models.Model):
     full_name = models.CharField(max_length=100)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='students')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='student_list')
     dob = models.DateField() # date_of_birth = dob
     phone = models.CharField(max_length=100)
     address = models.TextField()

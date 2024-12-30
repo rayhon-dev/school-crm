@@ -65,13 +65,13 @@ def group_update(request, pk):
             group.class_teacher_id = class_teacher_id
             group.save()
 
-            # O'quvchilarni yangilash
+
             selected_students = Student.objects.filter(pk__in=student_ids)
             group.students.set(selected_students)  # ManyToManyField uchun set() metodidan foydalanamiz
 
         return redirect(group.get_detail_url())
 
-    # Contextga barcha kerakli ma'lumotlarni qo'shish
+
     context = {
         'group': group,
         'class_teachers': Teacher.objects.all(),

@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="photo">Rasm:</label>
                 {% if teacher.photo %}
-                    <img src="{{ teacher.photo.url }}" alt="Current Image" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
+                    <img src="{{ teacher.photo.url }}" alt="Current Image" class="teacher-image" >
                 {% endif %}
                 <input type="file" id="photo" name="photo" accept="image/*">
             </div>

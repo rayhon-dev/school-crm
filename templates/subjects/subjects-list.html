@@ -22,7 +22,7 @@
                 <tr>
                     <td>{{ subject.pk }}</td>
                     <td>{{ subject.subject_name }}</td>
-                    <td>{{ subject.teachers_count }}</td>
+                    <td>{{ subject.teachers.count }}</td>
                     <td>
                         <a href="{{ subject.get_detail_url }}" class="btn btn-sm"><i class="fas fa-eye"></i> Ko'rish</a>
                         <a href="{{ subject.get_update_url }}" class="btn btn-sm"><i class="fas fa-edit"></i> Tahrirlash</a>

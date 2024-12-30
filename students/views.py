@@ -66,7 +66,6 @@ def student_update(request, pk):
             student.address = address
             if photo:
                 student.photo = photo
-
             student.save()
 
             return redirect(student.get_detail_url())

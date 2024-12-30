@@ -37,9 +37,9 @@
             <div class="form-group">
                 <label for="photo">Rasm:</label>
                 {% if student.photo %}
-                    <img src="{{ student.photo.url }}" alt="{{ student.full_name }}" style="width: 100px; height: auto;">
+                    <img src="{{ student.photo.url }}" alt="Current Image" style="width: 100px; height: auto;">
                 {% endif %}
-                <input type="file" id="photo" name="photo" accept="image/*" required>
+                <input type="file" id="photo" name="photo" accept="image/*" {% if not student.photo %} required {% endif %}>
             </div>
             <div class="actions">
                 <button type="submit" class="btn"><i class="fas fa-save"></i>{% if student %}Tahrirlash{% else %}Saqlash{% endif %}</button>
