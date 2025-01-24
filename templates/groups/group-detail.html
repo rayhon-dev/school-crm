@@ -22,19 +22,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for student in group.students.all %}
-                    <tr>
-                        <td>{{ student.pk }}</td>
-                        <td>{{ student.full_name }}</td>
-                        <td>
-                            <a href="{{ student.get_detail_url }}" class="btn btn-info">Ko'rish</a>
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="4">O'quvchilar hozircha yo'q</td>
-                    </tr>
-                {% endfor %}
+                    {% for student in group.students.all %}
+                        <tr>
+                            <td>{{ student.pk }}</td>
+                            <td>{{ student.full_name }}</td>
+                            <td>
+                                <a href="{{ student.get_detail_url }}" class="btn btn-info">Ko'rish</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">O'quvchilar hozircha yo'q</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Subject
 from teachers.models import Teacher
+from django.views import View
 
 
 def subject_list(request):
